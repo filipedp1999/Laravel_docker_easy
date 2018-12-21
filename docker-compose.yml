@@ -5,20 +5,20 @@ services:
         container_name: nginx
         build:
             context: ./.docker/nginx
-        ports:
-            - "80:80"
-        volumes:
-            - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-            - ./log:/var/log/nginx
-            - ./public:/var/www/public
-        links:
-            - php
-    php:
-        container_name: php
-        build:
-            context: ./.docker/php
-        env_file:
-            - .env
-        volumes:
-            - ./.docker/php/php.ini:/usr/local/etc/php/php.ini
-            - .:/var/www
+            ports:
+                - "80:80"
+                volumes:
+                    - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+                    - ./log:/var/log/nginx
+                    - ./public:/var/www/public
+                    links:
+                        - php
+                        php:
+                            container_name: php
+                            build:
+                                context: ./.docker/php
+                                env_file:
+                                    - .env
+                                    volumes:
+                                        - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+                                        - .:/var/www
